@@ -25,7 +25,7 @@
             <el-dialog :visible.sync="visible" title="Hello world">
               <p>Try Element</p>
             </el-dialog>
-            <div contenteditable="true"> 
+            <div contenteditable="true" > 
               跑遍了牧场又绕过了村庄
               《米兰的小铁匠》MV截图
               《米兰的小铁匠》MV截图(5张)
@@ -243,5 +243,8 @@ li {
 
 a {
   color: #42b983;
+}
+.el-tree-node__label{
+  position: relative;
 }
 </style>
