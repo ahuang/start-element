@@ -1,10 +1,9 @@
 <template>
   <div id="app">
     <h1>{{ msg }}</h1>
- 
-  
     <Split style="height: 500px;">
-        <SplitArea :size="10">
+        <SplitArea :size="15">
+          <!-- <p>test left panel-test left panel-test left panel-test left panel-test left panel-</p> -->
           <el-tree
             :data="data6"
             node-key="id"
@@ -15,12 +14,14 @@
             @node-drag-over="handleDragOver"
             @node-drag-end="handleDragEnd"
             @node-drop="handleDrop"
+            @node-click="handleNodeClick"
+            @node-contextmenu="handleNodeRightClick"            
             draggable
             :allow-drop="allowDrop"
             :allow-drag="allowDrag">
           </el-tree>
         </SplitArea>
-        <SplitArea :size="90">
+        <SplitArea :size="85">
             <el-button @click="visible = true">Button</el-button>
             <el-dialog :visible.sync="visible" title="Hello world">
               <p>Try Element</p>
@@ -138,13 +139,13 @@ export default {
           label: '一级 1',
           children: [{
             id: 4,
-            label: '二级 1-1',
+            label: 'aaa',
             children: [{
               id: 9,
-              label: '三级 1-1-1'
+              label: 'bbb'
             }, {
               id: 10,
-              label: '三级 1-1-2-long-long-long-long-long-long-long-long'
+              label: 'ccc  1-1-2-long-long-long-long-long-long-long-long-end'
             }]
           }]
         }, {
@@ -152,32 +153,12 @@ export default {
           label: '一级 2',
           children: [{
             id: 5,
-            label: '二级 2-1'
+            label: 'dddd'
           }, {
             id: 6,
-            label: '二级 2-2'
+            label: 'eeee'
           }]
-        }, {
-          id: 3,
-          label: '一级 3',
-          children: [{
-            id: 7,
-            label: '二级 3-1'
-          }, {
-            id: 8,
-            label: '二级 3-2',
-            children: [{
-            id: 11,
-              label: '三级 3-2-1'
-            }, {
-              id: 12,
-              label: '三级 3-2-2'
-            }, {
-              id: 13,
-              label: '三级 3-2-3'
-            }]
-          }]
-      }],
+        }],
       defaultProps: {
         children: 'children',
         label: 'label'
@@ -212,6 +193,12 @@ export default {
       },
       allowDrag(draggingNode) {
         return draggingNode.data.label.indexOf('三级 3-2-2') === -1;
+      },
+      handleNodeClick(data,node,com){
+        console.log('左点击', node, data.label);
+      },
+      handleNodeRightClick(event,data,node,com){
+        console.log('右点击', node, data.label);
       }
   }  
 }
@@ -245,6 +232,19 @@ a {
   color: #42b983;
 }
 .el-tree-node__label{
-  position: relative;
+  /* position: relative; */  /* 导致chrome左侧拖拽带动右侧面板文字移动的原因 */
+  color: green;
+  font-weight: bold;
 }
+
+/* 过长的目录不隐藏效果 */
+.split{
+  overflow: visible;
+}
+.el-tree-node>.el-tree-node__children{
+  overflow: visible;
+}
+
+/* 拖拽时，新增的内容，可能是插件用js写的 */
+
 </style>
