@@ -232,18 +232,19 @@ a {
   color: #42b983;
 }
 .el-tree-node__label{
-  /* position: relative; */  /* 导致chrome左侧拖拽带动右侧面板文字移动的原因 */
+  /* 导致chrome左侧拖拽带动右侧面板文字移动的原因 */
+  /* position: relative; */  
   color: green;
   font-weight: bold;
 }
 
 /* 过长的目录不隐藏效果 */
-.split{
+/* .split{
   overflow: visible;
 }
 .el-tree-node>.el-tree-node__children{
   overflow: visible;
-}
+} */
 
 /* 拖拽时，新增的内容，可能是插件用js写的 */
 
