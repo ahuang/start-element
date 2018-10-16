@@ -53,18 +53,29 @@ export default {
         // 刷新整颗树
         refreshTree(){
             console.log('@refreshTree');
+            // 下面这种方式，不局限于根目录的个数，刷新之后目录会折叠
             this.isShowTree = false;
             this.$nextTick(()=>{
                 this.isShowTree = true;
-            })
+            });
+            // 下面这种方式，局限于根目录只有1个，刷新之后目录会保持
+            // let node = this.$refs.myTree.getNode('1');
+            // node.data = {
+            //     name: `parent-${((Math.random())*100).toFixed(2)}`,
+            //     id: 1
+            // };
+            // this.$refs.myTree.updateKeyChildren(1,[
+            //     { id: 2,name: `good-${((Math.random())*100).toFixed(2)}`, leaf: true}, 
+            //     { id: 3,name: `ok-${((Math.random())*100).toFixed(2)}`}                
+            // ]);            
 
         },
         // 刷新根节点下的子节点
         refreshRoot(){
             console.log('@refreshRoot');
             const newData = [
-                { id: 2,name: `good${((Math.random())*100).toFixed(2)}`, leaf: true}, 
-                { id: 3,name: `ok${((Math.random())*100).toFixed(2)}`}
+                { id: 2,name: `good-${((Math.random())*100).toFixed(2)}`, leaf: true}, 
+                { id: 3,name: `ok-${((Math.random())*100).toFixed(2)}`}
             ];
             this.$refs.myTree.updateKeyChildren(1, newData);
         },
