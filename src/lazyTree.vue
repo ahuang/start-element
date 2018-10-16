@@ -2,7 +2,7 @@
     <Split style="height: 500px;">
         <SplitArea :size="15">
             <el-button @click="refreshTree" size="mini">刷新整颗树</el-button>
-            <el-button @click="refreshRoot" size="mini">刷新根节点下的自节点</el-button>
+            <el-button @click="refreshRoot" size="mini">刷新根节点下的子节点</el-button>
           <el-tree v-if="isShowTree"
             node-key="id" ref="myTree" :props="defaultProps"
             lazy :load="loadNode"
@@ -50,6 +50,7 @@ export default {
         }
     },
     methods: {
+        // 刷新整颗树
         refreshTree(){
             console.log('@refreshTree');
             this.isShowTree = false;
@@ -58,8 +59,9 @@ export default {
             })
 
         },
+        // 刷新根节点下的子节点
         refreshRoot(){
-            console.log('@refreshTree');
+            console.log('@refreshRoot');
             const newData = [
                 { id: 2,name: `good${((Math.random())*100).toFixed(2)}`, leaf: true}, 
                 { id: 3,name: `ok${((Math.random())*100).toFixed(2)}`}
