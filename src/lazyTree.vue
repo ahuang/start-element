@@ -1,23 +1,13 @@
 <template>
     <Split style="height: 500px;">
         <SplitArea :size="15">
-            <el-button @click="refreshTree">刷新树</el-button>
-          <el-tree
-            node-key="id"
-            lazy
-            :props="defaultProps"
-            :load="loadNode"
-            @node-drag-start="handleDragStart"
-            @node-drag-enter="handleDragEnter"
-            @node-drag-leave="handleDragLeave"
-            @node-drag-over="handleDragOver"
-            @node-drag-end="handleDragEnd"
-            @node-drop="handleDrop"
+            <el-button @click="refreshTree" size="mini">刷新整颗树</el-button>
+            <el-button @click="refreshRoot" size="mini">刷新根节点下的自节点</el-button>
+          <el-tree v-if="isShowTree"
+            node-key="id" ref="myTree" :props="defaultProps"
+            lazy :load="loadNode"
             @node-click="handleNodeClick"
-            @node-contextmenu="handleNodeRightClick"            
-            draggable
-            :allow-drop="allowDrop"
-            :allow-drag="allowDrag">
+            @node-contextmenu="handleNodeRightClick">
           </el-tree>
         </SplitArea>
         <SplitArea :size="85">
@@ -53,80 +43,62 @@ export default {
             visible: false,
             defaultProps: {
                 children: 'children',
-                label: 'label',
+                label: 'name',
                 isLeaf: 'leaf'
-            }
+            },
+            isShowTree: true
         }
     },
     methods: {
         refreshTree(){
-            console.log('refreshTree');
+            console.log('@refreshTree');
+            this.isShowTree = false;
+            this.$nextTick(()=>{
+                this.isShowTree = true;
+            })
+
+        },
+        refreshRoot(){
+            console.log('@refreshTree');
+            const newData = [
+                { id: 2,name: `good${((Math.random())*100).toFixed(2)}`, leaf: true}, 
+                { id: 3,name: `ok${((Math.random())*100).toFixed(2)}`}
+            ];
+            this.$refs.myTree.updateKeyChildren(1, newData);
         },
         // 懒加载树
         loadNode(node, resolve) {
             console.log('loadNode: ', node, node.level);
             if (node.level === 0) { // level 0
-                return resolve([{ label: `随机数${((Math.random())*100).toFixed(2)}` }]);
+                return resolve([ 
+                    { id:1, name: `随机数${((Math.random())*100).toFixed(2)}`} 
+                ]);
             }else if(node.level === 1){    // level 1
                 setTimeout(() => {
-                    const data = [{
-                        label: 'good',
-                        leaf: true
-                    }, {
-                        label: 'ok'
-                    }];
+                    const data = [
+                        { id: 2,name: 'good', leaf: true}, 
+                        { id: 3,name: 'ok'}
+                    ];
                     resolve(data);
                 }, 500);
             }else if(node.level === 2){
                 setTimeout(() => {
-                    const data = [{
-                        label: 'over?',
-                        leaf: true
-                    }, {
-                        label: 'yes',
-                        leaf: true
-                    }];
+                    const data = [
+                        { id: 4, name: 'over?', leaf: true}, 
+                        { id: 5, name: 'yes', leaf: true}
+                    ];
                     resolve(data);
                 }, 500);
             }else {
                 return resolve([]);
             }
-        },     
-
-        handleDragStart(node, ev) {
-            console.log('drag start', node);
-        },
-        handleDragEnter(draggingNode, dropNode, ev) {
-            console.log('tree drag enter: ', dropNode.label);
-        },
-        handleDragLeave(draggingNode, dropNode, ev) {
-            console.log('tree drag leave: ', dropNode.label);
-        },
-        handleDragOver(draggingNode, dropNode, ev) {
-            console.log('tree drag over: ', dropNode.label);
-        },
-        handleDragEnd(draggingNode, dropNode, dropType, ev) {
-            console.log('tree drag end: ', dropNode && dropNode.label, dropType);
-        },
-        handleDrop(draggingNode, dropNode, dropType, ev) {
-            console.log('tree drop: ', dropNode.label, dropType);
-        },
-        allowDrop(draggingNode, dropNode, type) {
-            if (dropNode.data.label === '二级 3-1') {
-            return type !== 'inner';
-            } else {
-            return true;
-            }
-        },
-        allowDrag(draggingNode) {
-            return draggingNode.data.label.indexOf('三级 3-2-2') === -1;
         },
         handleNodeClick(data,node,com){
             console.log('左点击', node, data.label);
         },
         handleNodeRightClick(event,data,node,com){
             console.log('右点击', node, data.label);
-        }
+        }        
     }      
 }
 </script>
