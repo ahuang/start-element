@@ -52,8 +52,8 @@ export default {
             console.log('addRoot');
             // this.$refs.myTree.append({ id:10, name: `new-parent-${this.genRandom()}`}, 0)
             // this.$refs.myTree.insertBefore({ id:10, name: `new-parent-${this.genRandom()}`}, 1)
+            this.$refs.myTree.root.data = this.level0Data;
             this.$refs.myTree.insertBefore({ id:10, name: `new-parent-${this.genRandom()}`}, 1)
-
         },
         addChild(){
             this.$refs.myTree.append({ id:10, name: `new-node-${this.genRandom()}`}, 1)
@@ -66,27 +66,25 @@ export default {
             this.$nextTick(()=>{
                 this.isShowTree = true;
             });
-
-            // 下面这种方式，需要遍历根目录的每个节点进行替换，刷新之后目录会保持
-            // let node1 = this.$refs.myTree.getNode('1');
-            // node1.data = {
-            //     name: `mama-${this.genRandom()}`,
-            //     id: 1
-            // };
-            // let node2 = this.$refs.myTree.getNode('2');
-            // node2.data = {
-            //     name: `papa-${this.genRandom()}`,
-            //     id: 2
-            // };            
-                          
-
-            // 下面这种方式，需要遍历根目录，但是第一个参数0不生效，刷新之后目录会保持
-            // let superRoot = this.$refs.myTree.root;
-            // console.log('this.$refs.myTree.root', superRoot);
-            // this.$refs.myTree.updateKeyChildren(0,[
-            //     { id:1, name: `mama-${this.genRandom()}`},
-            //     { id:2, name: `papa-${this.genRandom()}`}            
-            // ]);
+            // 未采用
+                // 下面这种方式，需要遍历根目录的每个节点进行替换，刷新之后目录会保持
+                // let node1 = this.$refs.myTree.getNode('1');
+                // node1.data = {
+                //     name: `mama-${this.genRandom()}`,
+                //     id: 1
+                // };
+                // let node2 = this.$refs.myTree.getNode('2');
+                // node2.data = {
+                //     name: `papa-${this.genRandom()}`,
+                //     id: 2
+                // };            
+                // 下面这种方式，需要遍历根目录，但是第一个参数0不生效，刷新之后目录会保持
+                // let superRoot = this.$refs.myTree.root;
+                // console.log('this.$refs.myTree.root', superRoot);
+                // this.$refs.myTree.updateKeyChildren(0,[
+                //     { id:1, name: `mama-${this.genRandom()}`},
+                //     { id:2, name: `papa-${this.genRandom()}`}            
+                // ]);
 
         },
         genRandom(){
@@ -105,10 +103,12 @@ export default {
         loadNode(node, resolve) {
             console.log('loadNode: ', node, node.level);
             if (node.level === 0) { // level 0
-                return resolve([ 
-                    { id:1, name: `mama-${this.genRandom()}`},
-                    { id:2, name: `papa-${this.genRandom()}`} 
-                ]);
+                // children 可以不设置
+                this.level0Data = [ 
+                    { id:1, name: `mama-${this.genRandom()}`, children: []},
+                    { id:2, name: `papa-${this.genRandom()}`, children: []} 
+                ];
+                return resolve(this.level0Data);
             }else if(node.level === 1){    // level 1
                 setTimeout(() => {
                     const data = [
