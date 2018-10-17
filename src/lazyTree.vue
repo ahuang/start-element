@@ -1,8 +1,6 @@
 <template>
     <Split style="height: 500px;">
         <SplitArea :size="15">
-            <el-button @click="refreshTree" size="mini">更新-根目录</el-button>
-            <el-button @click="refreshRoot" size="mini">更新-mama子节点</el-button>
           <el-tree v-if="isShowTree"
             node-key="id" ref="myTree" :props="defaultProps"
             lazy :load="loadNode"
@@ -12,10 +10,10 @@
         </SplitArea>
         <SplitArea :size="85">
             <div contenteditable="true" > 
-                <p>
-                    现状: 刷新页面可以刷新树结构 <br>
-                    期望：点击刷新按钮也可以刷新树结构
-                </p>
+            <el-button @click="refreshRoot" size="mini">更新-根目录</el-button>
+            <el-button @click="refreshChild" size="mini">更新-mama子节点</el-button>
+            <el-button @click="addRoot" size="mini">新增-根目录</el-button>
+            <el-button @click="addChild" size="mini">新增-mama子节点</el-button>                
                 <h2>占位文字</h2> 
                 <span style="color:gray">
                 在雨中漫步,蓝色街灯渐露,相对望,无声紧拥抱着,为了找往日,寻温馨的往日,消失了,任雨洒我面,难分水点泪痕,心更乱,愁丝绕千百段,骤变的态度,无心伤她说话,收不了,
@@ -50,8 +48,18 @@ export default {
         }
     },
     methods: {
+        addRoot(){
+            console.log('addRoot');
+            // this.$refs.myTree.append({ id:10, name: `new-parent-${this.genRandom()}`}, 0)
+            // this.$refs.myTree.insertBefore({ id:10, name: `new-parent-${this.genRandom()}`}, 1)
+            this.$refs.myTree.insertBefore({ id:10, name: `new-parent-${this.genRandom()}`}, 1)
+
+        },
+        addChild(){
+            this.$refs.myTree.append({ id:10, name: `new-node-${this.genRandom()}`}, 1)
+        },
         // 更新-根目录
-        refreshTree(){
+        refreshRoot(){
             console.log('@refreshTree');
             // 下面这种方式，不局限于根目录的个数，刷新之后目录会折叠
             this.isShowTree = false;
@@ -85,7 +93,7 @@ export default {
             return ((Math.random())*100).toFixed(2);
         },
         // 更新-mama子节点
-        refreshRoot(){
+        refreshChild(){
             console.log('@refreshRoot');
             const newData1 = [
                 { id: 3,name: `good-${this.genRandom()}`, leaf: true}, 
@@ -133,10 +141,16 @@ export default {
 
 
 <style>
+.split.split-horizontal, .gutter.gutter-horizontal{
+    text-align: left;
+}
 .el-tree-node__label{
   color: orange;
   font-weight: bold;
 }
 
-
+.el-button--mini, .el-button--mini.is-round{
+    margin: 10px;
+    display: block;
+}
 </style>
