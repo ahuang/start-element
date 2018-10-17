@@ -1,8 +1,8 @@
 <template>
     <Split style="height: 500px;">
         <SplitArea :size="15">
-            <el-button @click="refreshTree" size="mini">刷新整颗树</el-button>
-            <el-button @click="refreshRoot" size="mini">刷新根节点下的子节点</el-button>
+            <el-button @click="refreshTree" size="mini">更新-根目录</el-button>
+            <el-button @click="refreshRoot" size="mini">更新-mama子节点</el-button>
           <el-tree v-if="isShowTree"
             node-key="id" ref="myTree" :props="defaultProps"
             lazy :load="loadNode"
@@ -50,7 +50,7 @@ export default {
         }
     },
     methods: {
-        // 刷新整颗树
+        // 更新-根目录
         refreshTree(){
             console.log('@refreshTree');
             // 下面这种方式，不局限于根目录的个数，刷新之后目录会折叠
@@ -58,47 +58,62 @@ export default {
             this.$nextTick(()=>{
                 this.isShowTree = true;
             });
-            // 下面这种方式，局限于根目录只有1个，刷新之后目录会保持
-            // let node = this.$refs.myTree.getNode('1');
-            // node.data = {
-            //     name: `parent-${((Math.random())*100).toFixed(2)}`,
+
+            // 下面这种方式，需要遍历根目录的每个节点进行替换，刷新之后目录会保持
+            // let node1 = this.$refs.myTree.getNode('1');
+            // node1.data = {
+            //     name: `mama-${this.genRandom()}`,
             //     id: 1
             // };
-            // this.$refs.myTree.updateKeyChildren(1,[
-            //     { id: 2,name: `good-${((Math.random())*100).toFixed(2)}`, leaf: true}, 
-            //     { id: 3,name: `ok-${((Math.random())*100).toFixed(2)}`}                
-            // ]);            
+            // let node2 = this.$refs.myTree.getNode('2');
+            // node2.data = {
+            //     name: `papa-${this.genRandom()}`,
+            //     id: 2
+            // };            
+                          
+
+            // 下面这种方式，需要遍历根目录，但是第一个参数0不生效，刷新之后目录会保持
+            // let superRoot = this.$refs.myTree.root;
+            // console.log('this.$refs.myTree.root', superRoot);
+            // this.$refs.myTree.updateKeyChildren(0,[
+            //     { id:1, name: `mama-${this.genRandom()}`},
+            //     { id:2, name: `papa-${this.genRandom()}`}            
+            // ]);
 
         },
-        // 刷新根节点下的子节点
+        genRandom(){
+            return ((Math.random())*100).toFixed(2);
+        },
+        // 更新-mama子节点
         refreshRoot(){
             console.log('@refreshRoot');
-            const newData = [
-                { id: 2,name: `good-${((Math.random())*100).toFixed(2)}`, leaf: true}, 
-                { id: 3,name: `ok-${((Math.random())*100).toFixed(2)}`}
-            ];
-            this.$refs.myTree.updateKeyChildren(1, newData);
+            const newData1 = [
+                { id: 3,name: `good-${this.genRandom()}`, leaf: true}, 
+                { id: 4,name: `ok-${this.genRandom()}`}
+            ];      
+            this.$refs.myTree.updateKeyChildren(1, newData1);
         },
         // 懒加载树
         loadNode(node, resolve) {
             console.log('loadNode: ', node, node.level);
             if (node.level === 0) { // level 0
                 return resolve([ 
-                    { id:1, name: `随机数${((Math.random())*100).toFixed(2)}`} 
+                    { id:1, name: `mama-${this.genRandom()}`},
+                    { id:2, name: `papa-${this.genRandom()}`} 
                 ]);
             }else if(node.level === 1){    // level 1
                 setTimeout(() => {
                     const data = [
-                        { id: 2,name: 'good', leaf: true}, 
-                        { id: 3,name: 'ok'}
+                        { id: 3,name: 'good', leaf: true}, 
+                        { id: 4,name: 'ok'}
                     ];
                     resolve(data);
                 }, 500);
             }else if(node.level === 2){
                 setTimeout(() => {
                     const data = [
-                        { id: 4, name: 'over?', leaf: true}, 
-                        { id: 5, name: 'yes', leaf: true}
+                        { id: 5, name: 'over?', leaf: true}, 
+                        { id: 6, name: 'yes', leaf: true}
                     ];
                     resolve(data);
                 }, 500);
