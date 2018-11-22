@@ -4,17 +4,19 @@
     <!-- 全量目录树 -->
     <!-- <all-tree></all-tree> -->
     <!-- 懒加载 -->
-    <lazy-tree></lazy-tree>
+    <!-- <lazy-tree></lazy-tree> -->
+    <test1></test1>
   </div>
 </template>
 
 <script>
 import allTree from './allTree.vue';
 import lazyTree from './lazyTree.vue';
+import test1 from './test1.vue';
 
 export default {
   name: 'app',
-  components: {allTree, lazyTree},
+  components: {allTree, lazyTree, test1},
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',    
