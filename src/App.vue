@@ -1,11 +1,19 @@
 <template>
   <div id="app">
     <h1>{{ msg }}</h1>
+
     <!-- 全量目录树 -->
     <!-- <all-tree></all-tree> -->
+
     <!-- 懒加载 -->
     <!-- <lazy-tree></lazy-tree> -->
-    <test1></test1>
+
+    <!-- el-select远程搜索，回车时选择框消失处理 -->
+    <!-- <test1></test1> -->
+
+  <!-- el-select下拉框大于输入框 -->
+    <select-width></select-width>
+
   </div>
 </template>
 
@@ -13,10 +21,11 @@
 import allTree from './allTree.vue';
 import lazyTree from './lazyTree.vue';
 import test1 from './test1.vue';
+import selectWidth from './selectWidth.vue';
 
 export default {
   name: 'app',
-  components: {allTree, lazyTree, test1},
+  components: {allTree, lazyTree, test1, selectWidth},
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',    
