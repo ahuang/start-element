@@ -53,11 +53,10 @@ export default {
     },
     methods: {
         addRoot(){
-            console.log('addRoot');
+            console.log('this.$refs.myTree.root: ',this.$refs.myTree.root);
             // this.$refs.myTree.append({ id:10, name: `new-parent-${this.genRandom()}`}, 0)
-            // this.$refs.myTree.insertBefore({ id:10, name: `new-parent-${this.genRandom()}`}, 1)
-            this.$refs.myTree.root.data = this.level0Data;
-            this.$refs.myTree.insertBefore({ id:10, name: `new-parent-${this.genRandom()}`}, 1)
+            this.$refs.myTree.root.data = [{id: 0, name: ''}]; // 给root添加data
+            this.$refs.myTree.insertBefore({ id:10, name: `new-parent-${this.genRandom()}`}, 1); //在node.data.id=1节点之前添加新节点
         },
         addChild(){
             this.$refs.myTree.append({ id:10, name: `new-node-${this.genRandom()}`}, 1)
@@ -106,11 +105,10 @@ export default {
         // 懒加载树
         loadNode(node, resolve) {
             console.log('loadNode: ', node, node.level);
-            if (node.level === 0) { // level 0
-                // children 可以不设置
+            if (node.level === 0) { // level 0                
                 this.level0Data = [ 
-                    { id:1, name: `mama-${this.genRandom()}`, children: []},
-                    { id:2, name: `papa-${this.genRandom()}`, children: []} 
+                    { id:1, name: `mama-${this.genRandom()}`},
+                    { id:2, name: `papa-${this.genRandom()}`} 
                 ];
                 return resolve(this.level0Data);
             }else if(node.level === 1){    // level 1
