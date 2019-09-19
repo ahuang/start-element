@@ -1,10 +1,6 @@
 <template>
     <Split style="height: 500px;">
         <SplitArea :size="15">
-            <div class="tool">
-                <el-button>button1</el-button>
-                <el-button>button2</el-button>
-            </div>
           <el-tree v-if="isShowTree"
             node-key="id" ref="myTree" :props="defaultProps"
             lazy :load="loadNode"
@@ -14,11 +10,11 @@
         </SplitArea>
         <SplitArea :size="85">
             <div contenteditable="true" style="outline:none"> 
-                <el-button @click="refreshRoot" size="mini">更新-根目录</el-button>
-                <el-button @click="refreshChild" size="mini">更新-mama子节点</el-button>
+                <!-- <el-button @click="refreshRoot" size="mini">更新-根目录</el-button> -->
+                <!-- <el-button @click="refreshChild" size="mini">更新-mama子节点</el-button> -->
                 <el-button @click="addRoot" size="mini">新增-根目录</el-button>
-                <el-button @click="addChild" size="mini">新增-mama子节点</el-button>                
-                <h2>占位文字</h2> 
+                <el-button @click="addChild" size="mini">新增-测试1子节点</el-button>                
+                <h2 style="margin-top: 80px">用例展示....</h2> 
                 <span style="color:gray">
                     在雨中漫步,蓝色街灯渐露,相对望,无声紧拥抱着,为了找往日,寻温馨的往日,消失了,任雨洒我面,难分水点泪痕,心更乱,愁丝绕千百段,骤变的态度,无心伤她说话,收不了,
                     冷雨夜我在你身边,盼望你会知,可知道我的心,比当初已改变,只牵强地相处,冷雨夜我不想归家,怕望你背影,只苦笑望雨点,须知要说清楚,可惜我没胆试,在雨中漫步,
@@ -56,11 +52,14 @@ export default {
             console.log('addRoot');
             // this.$refs.myTree.append({ id:10, name: `new-parent-${this.genRandom()}`}, 0)
             // this.$refs.myTree.insertBefore({ id:10, name: `new-parent-${this.genRandom()}`}, 1)
-            this.$refs.myTree.root.data = this.level0Data;
-            this.$refs.myTree.insertBefore({ id:10, name: `new-parent-${this.genRandom()}`}, 1)
+            // this.$refs.myTree.root.data = this.level0Data;
+            // this.$refs.myTree.insertBefore({ id:3, name: `new-parent-${this.genRandom()}`}, 1)
+            console.log('root: ', this.$refs.myTree.root)
+            this.$refs.myTree.root.data = [];
+            this.$refs.myTree.insertBefore({ id:3, name: `测试3`}, 1)
         },
         addChild(){
-            this.$refs.myTree.append({ id:10, name: `new-node-${this.genRandom()}`}, 1)
+            this.$refs.myTree.append({ id:11, name: `测试1子节点`}, 1)
         },
         // 更新-根目录
         refreshRoot(){
@@ -109,8 +108,10 @@ export default {
             if (node.level === 0) { // level 0
                 // children 可以不设置
                 this.level0Data = [ 
-                    { id:1, name: `mama-${this.genRandom()}`, children: []},
-                    { id:2, name: `papa-${this.genRandom()}`, children: []} 
+                    // { id:1, name: `用例1-${this.genRandom()}`, children: []},
+                    // { id:2, name: `用例2-${this.genRandom()}`, children: []} 
+                    { id:1, name: `用例1`, children: []},
+                    { id:2, name: `用例2`, children: []}                     
                 ];
                 return resolve(this.level0Data);
             }else if(node.level === 1){    // level 1
