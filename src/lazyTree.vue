@@ -49,7 +49,7 @@ export default {
     },
     methods: {
         addRoot(){
-            console.log('addRoot');
+            console.log('this.$refs.myTree.root: ',this.$refs.myTree.root);
             // this.$refs.myTree.append({ id:10, name: `new-parent-${this.genRandom()}`}, 0)
             // this.$refs.myTree.insertBefore({ id:10, name: `new-parent-${this.genRandom()}`}, 1)
             // this.$refs.myTree.root.data = this.level0Data;
@@ -105,8 +105,7 @@ export default {
         // 懒加载树
         loadNode(node, resolve) {
             console.log('loadNode: ', node, node.level);
-            if (node.level === 0) { // level 0
-                // children 可以不设置
+            if (node.level === 0) { // level 0                
                 this.level0Data = [ 
                     // { id:1, name: `用例1-${this.genRandom()}`, children: []},
                     // { id:2, name: `用例2-${this.genRandom()}`, children: []} 
