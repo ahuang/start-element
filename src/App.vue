@@ -24,7 +24,9 @@
     <!-- <nestedTable3></nestedTable3> -->
 
     <!-- table内部嵌套不同表头的table && 数据异步请求获取 && 懒加载 -->
-    <nestedTable4></nestedTable4>    
+    <!-- <nestedTable4></nestedTable4>     -->
+
+    <tableDiffSize></tableDiffSize>
 
   </div>
 </template>
@@ -38,6 +40,7 @@ import nestedTable1 from './nestedTable1.vue';
 import nestedTable2 from './nestedTable2.vue';
 import nestedTable3 from './nestedTable3.vue';
 import nestedTable4 from './nestedTable4.vue';
+import tableDiffSize from './tableDiffSize.vue';
 
 export default {
   name: 'app',
@@ -49,7 +52,8 @@ export default {
     nestedTable1,
     nestedTable2, 
     nestedTable3, 
-    nestedTable4
+    nestedTable4,
+    tableDiffSize
   },
   data () {
     return {
