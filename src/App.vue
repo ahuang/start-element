@@ -8,10 +8,7 @@
     <!-- 懒加载 -->
     <!-- <lazy-tree></lazy-tree> -->
 
-    <!-- el-select远程搜索，回车时选择框消失处理 -->
-    <!-- <test1></test1> -->
-
-  <!-- el-select下拉框大于输入框 -->
+    <!-- el-select下拉框大于输入框 -->
     <!-- <select-width></select-width> -->
 
     <!-- table内部嵌套普通结构 && 数据同步获取 -->
@@ -26,38 +23,37 @@
     <!-- table内部嵌套不同表头的table && 数据异步请求获取 && 懒加载 -->
     <!-- <nestedTable4></nestedTable4>     -->
 
-    <tableDiffSize></tableDiffSize>
+    <!-- 嵌套在table中的input无法编辑问题 -->
+    <input-can-not></input-can-not>
 
   </div>
 </template>
 
 <script>
-import allTree from './allTree.vue';
-import lazyTree from './lazyTree.vue';
-import test1 from './test1.vue';
-import selectWidth from './selectWidth.vue';
-import nestedTable1 from './nestedTable1.vue';
-import nestedTable2 from './nestedTable2.vue';
-import nestedTable3 from './nestedTable3.vue';
-import nestedTable4 from './nestedTable4.vue';
-import tableDiffSize from './tableDiffSize.vue';
+import allTree from './01.allTree.vue';
+import lazyTree from './02.lazyTree.vue';
+import selectWidth from './03.selectWidth.vue';
+import nestedTable1 from './04.nestedTable.test1.vue';
+import nestedTable2 from './04.nestedTable.test2.vue';
+import nestedTable3 from './04.nestedTable.test3.vue';
+import nestedTable4 from './04.nestedTable.test4.vue';
+import inputCanNot from './05.input-can-not.vue';
 
 export default {
   name: 'app',
   components: {
     allTree, 
     lazyTree, 
-    test1, 
     selectWidth,
     nestedTable1,
     nestedTable2, 
     nestedTable3, 
     nestedTable4,
-    tableDiffSize
+    inputCanNot
   },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',    
+      msg: 'vue + element test',    
     }
   },
   methods: {
