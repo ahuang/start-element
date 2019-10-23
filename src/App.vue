@@ -23,7 +23,7 @@
     <!-- table内部嵌套不同表头的table && 数据异步请求获取 && 懒加载 -->
     <!-- <nestedTable4></nestedTable4>     -->
 
-    <!-- 嵌套在table中的input无法编辑问题 -->
+    <!-- 嵌套在table中的input的编辑问题，没有问题，没有重现无法编辑的问题 -->
     <input-can-not></input-can-not>
 
   </div>
