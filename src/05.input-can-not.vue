@@ -1,18 +1,18 @@
 <template>
   <div>
-    input can not
-    <el-button @click="onAdd">add</el-button>
-
+    <div style="margin: 10px;">
+      <strong>input can not</strong>
+      <el-button @click="onAdd">add data</el-button>
+    </div>
     <el-table :data="form.urls" stripe border size="small">
-      <el-table-column prop="name" label="name" width="80" />
-
-      <el-table-column prop="realPercent" label="权重" width="120">
+      <el-table-column prop="name" label="name" />
+      <el-table-column prop="realPercent" label="权重">
         <template slot-scope="scope">
           <el-input v-if="scope.$index===urlEditIndex" v-model="scope.row.realPercent" />
           <span v-else>{{ `${scope.row.realPercent ? scope.row.realPercent : 0}%` }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="200">
+      <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="urlEditIndex = scope.$index">编辑</el-button>
         </template>
@@ -42,10 +42,10 @@ export default {
       });
       this.modifydata();
     },
-    modifydata(){
-        this.form.urls.map(d=>{
-            d.realPercent += 2;
-        })
+    modifydata() {
+      this.form.urls.map(d => {
+        d.realPercent += 2;
+      });
     }
   }
 };
